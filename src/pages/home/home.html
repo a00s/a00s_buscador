@@ -2,12 +2,12 @@
     <ion-toolbar no-border>
         <ion-grid>
             <ion-row>
-                <!--<ion-col width-25>
-                </ion-col>-->
                 <ion-col class="centraliza">
                     <div class="row">
                         <div>
-                            <button class="botaoLimpar" ion-button icon-only round (click)="limpar()"><ion-icon name="close"></ion-icon></button>
+                            <button class="botaoLimpar" ion-button icon-only round (click)="limpar()">
+                                <ion-icon name="close"></ion-icon>
+                            </button>
                         </div>
                         <div>
                             <form (ngSubmit)="buscaApi()">
@@ -15,46 +15,49 @@
                             </form>
                         </div>
                         <div>
-                            <button round icon-only ion-button icon-right (click)="buscaApi()"><ion-icon name="search"></ion-icon></button>
+                            <button round icon-only ion-button icon-right (click)="buscaApi()">
+                                <ion-icon name="search"></ion-icon>
+                            </button>
                         </div>
                     </div>
                 </ion-col>
-                <!--<ion-col width-25>
-                </ion-col>-->
             </ion-row>
         </ion-grid>
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
     <ion-grid>
-        <ion-row>
-            <ion-col class="labelFormList">
-                <ion-card *ngIf="!produtos">
-                    <ion-card-content>
-                        <i>Que tal fazer uma busca de produtos diretamente no sistema das lojas e poder encontrar o que está procurando neste momento?<br> Basta digitar o que procura no campo de busca no topo desta página.</i>
-                        <br><br>
-                        <h1><b>{{quantidade}}</b> produtos disponíveis</h1>
-                    </ion-card-content>
-                </ion-card>
-                <ion-card *ngFor="let produto of produtos">
-                    <ion-card-content>
-                        <ion-card-title>
-                            {{produto['descricao']}}
-                        </ion-card-title>
-                        <img *ngIf="produto['chave']" src="https://www.a00s.com.br/a00s_V2-20170318/a00s_api?tipo=a00s_busca_imagem&chave={{produto['chave']}}">
-                        <div class="row">
-                            <div><button ion-button icon-right class="botaovalor" *ngIf="produto[ 'valor']">R$ {{produto['valor']}}</button> </div>
-                            <div><button ion-button icon-right class="botaoempresa" *ngIf="produto['empresa']"><ion-icon name="home"> </ion-icon>{{produto['empresa']}}</button></div>
-                            <div><button ion-button icon-right class="botaotelefone" *ngIf="produto['telefone']"><ion-icon name="call"> </ion-icon>{{produto['telefone']}}</button></div>
-                            <div *ngIf="produto['empresa']">
-                                <!--<b>Código do produto: {{produto['codigo']}}</b><br>-->{{produto['endereco']}}
-                                <br>
-                                <i>*Contate o vendedor para verificar disponibilidade</i></div>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
+        <ion-row responsive-sm wrap>
+            <ion-card *ngIf="!produtos" style="max-width: 400px;">
+                <ion-card-content>
+                    <i>Que tal fazer uma busca de produtos diretamente no sistema das lojas e poder encontrar o que está procurando
+                        neste momento?
+                        <br> Basta digitar o que procura no campo de busca no topo desta página.</i>
+                    <br>
+                    <br>
+                    <h1>
+                        <b>{{quantidade}}</b> produtos disponíveis</h1>
+                </ion-card-content>
+            </ion-card>
+            <ion-card *ngFor="let produto of produtos" style="max-width: 400px;">
+                <ion-card-content responsive-sm wrap>
+                    <ion-card-title>
+                        {{produto['descricao']}}
+                    </ion-card-title>
+                    <img *ngIf="produto['chave']" src="{{urlAPI}}/a00s_api?tipo=a00s_busca_imagem&chave={{produto['chave']}}">
+                    <button ion-button icon-right class="botaovalor" *ngIf="produto[ 'valor']">R$ {{produto['valor']}}</button>
+                    <button ion-button icon-right class="botaoempresa" *ngIf="produto['empresa']">
+                        <ion-icon name="home"> </ion-icon>{{produto['empresa']}}</button>
+                    <button ion-button icon-right class="botaotelefone" *ngIf="produto['telefone']">
+                        <ion-icon name="call"> </ion-icon>{{produto['telefone']}}</button>
+                    <div *ngIf="produto['empresa']">
+                        <!--<b>Código do produto: {{produto['codigo']}}</b><br>-->{{produto['endereco']}}
+                        <br>
+                        <i>*Contate o vendedor para verificar disponibilidade</i>
+                    </div>
+                </ion-card-content>
+            </ion-card>
         </ion-row>
     </ion-grid>
 </ion-content>
